@@ -1,0 +1,43 @@
+﻿@using Timestamp.Site.Utilities
+
+
+<div class="flex items-center gap-2 text-gray-500/90 md:w-2/3 w-full md:mx-auto pb-14 text-sm">
+    <!-- Caption -->
+    <span class="flex-none pt-1 px-2 text-lg">
+        Timestamp :
+    </span>
+    <!-- input -->
+    <input type="number" autocomplete="off" @bind-value="Timestamp" min="-40070435400" max="253402300799" class="w-full flex-1 h-full px-3 py-2 text-gray-600 placeholder:text-gray-400 bg-gray-100 text-lg focus:bg-gray-50 border-2 focus:border-blue-500/70 border-gray-500/30 rounded transition duration-800">
+    <!-- Convert -->
+    <button class="flex-none h-full px-3 py-2.5 text-gray-100 bg-gray-600 hover:bg-gray-600/60 focus:ring-gray-500/70 ring-2 ring-transparent rounded transition duration-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+    </button>
+</div>
+<div class="flex flex-col md:flex-row divide-x divide-gray-400/30 w-full gap-4 justify-evenly @((Timestamp != 0)?"":"invisible")">
+    <!-- Gregorian -->
+    <div class="flex flex-1 flex-col items-center justify-center">
+        <p class="py-1 text-lg text-center text-gray-500 py-4">Gregorian</p>
+        <p class="py-1 text-lg text-center text-green-800">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToLongDateString())</p>
+        <p class="py-1 text-base text-center text-green-700">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToShortDateString())</p>
+    </div>
+    <!-- Solar -->
+    <div class="flex flex-1 flex-col items-center justify-center">
+        <p class="py-1 text-lg text-center text-gray-500 py-4">Solar</p>
+        <p class="py-1 text-lg text-center text-green-800 rtl">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToLongSolarDateString())</p>
+        <p class="py-1 text-base text-center text-green-700">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToShortSolarDateString())</p>
+    </div>
+    <!-- Lunar -->
+    <div class="flex flex-1 flex-col items-center justify-center">
+        <p class="py-1 text-lg text-center text-gray-500 py-4">Lunar</p>
+        <p class="py-1 text-lg text-center text-green-800">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToLongLunarDateString())</p>
+        <p class="py-1 text-base text-center text-green-700">@(DateTimeOffset.FromUnixTimeSeconds(Timestamp).DateTime.ToShortLunarDateString())</p>
+    </div>
+</div>
+@code {
+
+    [Parameter]
+    public long Timestamp { get; set; }
+
+}

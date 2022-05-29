@@ -1,0 +1,114 @@
+﻿@using System.Globalization;
+
+<div class="flex lg:flex-row flex-col items-center gap-2 text-gray-500/90 w-full md:mx-auto pb-14 text-sm flex-wrap">
+
+    <!-- inputs -->
+    <div class="flex items-center gap-2 text-gray-500/90 text-sm flex-none w-20 lg:w-auto">
+        <lable>Day :</lable><input type="number" autocomplete="off" @bind-value="Day" min="1" max="32" class="w-full flex-1 h-full px-3 py-2 text-gray-600 placeholder:text-gray-400 bg-gray-100 text-lg focus:bg-gray-50 border-2 focus:border-blue-500/70 border-gray-500/30 rounded transition duration-800">
+    </div>
+    <div class="flex items-center gap-2 text-gray-500/90 text-sm flex-1 w-full lg:w-auto">
+        <lable>Month :</lable><input type="number" autocomplete="off" @bind-value="Month" min="1" max="12" class="w-full flex-1 h-full px-3 py-2 text-gray-600 placeholder:text-gray-400 bg-gray-100 text-lg focus:bg-gray-50 border-2 focus:border-blue-500/70 border-gray-500/30 rounded transition duration-800">
+    </div>
+    <div class="flex items-center gap-2 text-gray-500/90 text-sm flex-1 w-full lg:w-auto">
+        <lable>Year :</lable><input type="number" autocomplete="off" @bind-value="Year" min="70" max="9999" class="w-full flex-1 h-full px-3 py-2 text-gray-600 placeholder:text-gray-400 bg-gray-100 text-lg focus:bg-gray-50 border-2 focus:border-blue-500/70 border-gray-500/30 rounded transition duration-800">
+    </div>
+    <div class="flex items-center gap-2 text-gray-500/90 text-sm w-full flex-grow">
+        <lable>Calender :</lable>
+        <select type="number" autocomplete="off" @onchange="onCalenderChange" min="-62135596800" max="253402300799" class="w-full flex-1 h-full px-3 py-2 text-gray-600 placeholder:text-gray-400 bg-gray-100 text-lg focus:bg-gray-50 border-2 focus:border-blue-500/70 border-gray-500/30 rounded transition duration-800">
+            <option>Gregorian</option>
+            <option>Solar</option>
+            <option>Lunar</option>
+        </select>
+        <!-- Convert -->
+        <button @onclick="getTimeStamp" class="flex-none h-full px-3 py-2.5 text-gray-100 bg-gray-600 hover:bg-gray-600/60 focus:ring-gray-500/70 ring-2 ring-transparent rounded transition duration-800 flex-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+        </button>
+    </div>
+
+</div>
+
+<p class="py-2 text-center text-gray-500 px-2 @((string.IsNullOrWhiteSpace(_timestamp))?"invisible":"")">Timestamp : <span class="px-2 text-green-800">@_timestamp</span></p>
+
+
+
+
+@code{
+    [Parameter]
+    public static int Day { get; set; } = DateTime.Now.Day;
+
+    [Parameter]
+    public static int Month { get; set; } = DateTime.Now.Month;
+
+    [Parameter]
+    public static int Year { get; set; } = DateTime.Now.Year;
+
+    [Parameter]
+    public static string Calender { get; set; } = "Gregorian";
+
+    static string _timestamp = string.Empty;
+
+
+
+
+
+    private static void getTimeStamp()
+    {
+        try
+        {
+
+            PersianCalendar pCalender = new PersianCalendar();
+            HijriCalendar hCalender = new HijriCalendar();
+            switch (Calender)
+            {
+                case "Gregorian":
+                    DateTime foo = new DateTime(year: Year, month: Month, day: Day, 12, 0, 0, 0);
+                    _timestamp = ((DateTimeOffset)foo).ToUnixTimeSeconds().ToString();
+                    break;
+                case "Solar":
+                    DateTime solfoo = pCalender.ToDateTime(Year, Month, Day, 12, 0, 0, 0);
+                    _timestamp = ((DateTimeOffset)solfoo).ToUnixTimeSeconds().ToString();
+                    break;
+                case "Lunar":
+                    DateTime lunfoo = hCalender.ToDateTime(Year, Month, Day, 12, 0, 0, 0);
+                    _timestamp = ((DateTimeOffset)lunfoo).ToUnixTimeSeconds().ToString();
+                    break;
+                default:
+                    _timestamp = "Error calculating unix timestamp";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    void onCalenderChange(ChangeEventArgs e)
+    {
+        Calender = e.Value.ToString();
+        PersianCalendar pCalender = new PersianCalendar();
+        HijriCalendar hCalender = new HijriCalendar();
+        switch (Calender)
+        {
+            case "Gregorian":
+                Year = DateTime.Now.Year;
+                Month = DateTime.Now.Month;
+                Day = DateTime.Now.Day;
+                break;
+            case "Solar":
+                Year = pCalender.GetYear(DateTime.Now);
+                Month = pCalender.GetMonth(DateTime.Now);
+                Day = pCalender.GetDayOfMonth(DateTime.Now);
+                break;
+            case "Lunar":
+                Year = hCalender.GetYear(DateTime.Now);
+                Month = hCalender.GetMonth(DateTime.Now);
+                Day = hCalender.GetDayOfMonth(DateTime.Now);
+                break;
+        }
+    }
+
+}
+

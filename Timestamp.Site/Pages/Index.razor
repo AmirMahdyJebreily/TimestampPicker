@@ -1,0 +1,26 @@
+﻿@page "/{SelectedName?}"
+
+<PageTitle>Timestamp Picker</PageTitle>
+
+<Header SelectedName="@this.SelectedName" />
+
+<TimestampPicker SelectedName="@this.SelectedName"></TimestampPicker>
+
+<Footer />
+
+@*
+ █████╗ ███╗   ███╗██╗██████╗          ██╗ ██████╗███████╗
+██╔══██╗████╗ ████║██║██╔══██╗         ██║██╔════╝██╔════╝
+███████║██╔████╔██║██║██████╔╝         ██║██║     ███████╗
+██╔══██║██║╚██╔╝██║██║██╔══██╗    ██   ██║██║     ╚════██║
+██║  ██║██║ ╚═╝ ██║██║██║  ██║    ╚█████╔╝╚██████╗███████║
+╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═╝     ╚════╝  ╚═════╝╚══════╝
+                Developed by Amir JCS
+         https://github.com/AmirMahdyJebreily
+*@
+
+
+@code{
+    [Parameter]
+    public string SelectedName { get; set; }
+}

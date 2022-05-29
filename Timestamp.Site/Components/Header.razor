@@ -1,0 +1,14 @@
+﻿<header class="">
+    <!-- Title -->
+    <h1 class="md:text-7xl sm:text-5xl text-3xl text-center text-gray-700 font-light md:pb-14 pb-6 md:pt-4 border-b border-gray-400">Timestamp Picker</h1>
+    <!--Nav-->
+    <div class="flex flex-col sm:flex-row justify-evenly md:text-base text-sm md:gap-4 text-gray-500/70 gap-2 py-2">
+        <a href="/convert-to-datetime" class="hover:text-gray-500 py-2 transition-all border-b @((SelectedName == "convert-to-datetime")?"border-gray-500":"border-transparent") duration-200 block select-none cursor-pointer">Convert Timestamp to real time</a>
+        <a href="/convert-to-unixtime" class="hover:text-gray-500 py-2 transition-all border-b @((SelectedName == "convert-to-unixtime")?"border-gray-500":"border-transparent") duration-200 block select-none cursor-pointer">Convert real time to Timestamp</a>
+    </div>
+</header>
+
+@code {
+    [Parameter]
+    public string SelectedName { get; set; }
+}

@@ -1,0 +1,19 @@
+﻿<div class="h-full py-14 flex flex-col items-center w-full">
+    <div class="@(string.IsNullOrWhiteSpace(SelectedName)?"":"hidden") px-8 py-4 w-1/2 mx-auto text-center text-gray-400/70">
+        With this software you can convert real time to Unix time and Unix time to real time. The source code of this project will be provided for free in GitHub under MIT license. Help develop this project!
+    </div>
+    <div class="@((string.IsNullOrWhiteSpace(SelectedName)?"hidden":"")) w-full">
+        <div class="@((SelectedName == "convert-to-datetime")?"":"hidden") px-8 py-4 w-full">
+            <JCStstodt />
+        </div>
+        <div class="@((SelectedName == "convert-to-unixtime")?"":"hidden") px-8 py-4 w-full">
+            <JCSdttots />
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string SelectedName { get; set; }
+}
