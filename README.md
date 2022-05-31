@@ -13,7 +13,7 @@ In this project, a repository [String Format for other Calenders](https://github
 
 ## Core Web Components 
 
-The [```JCStstodt```](/Timestamp.Site/Components/JCStstodt.razor) Razor Component, Provide to you for convert unix timestamp to real date&time and use [String Format for other Calenders](https://github.com/AmirMahdyJebreily/String-Format-for-other-Calenders) for view on page.
+Using the [```JCStstodt```](/Timestamp.Site/Components/JCStstodt.razor) Razor Component to convert unix timestamp to real date&time and use [String Format for other Calenders](https://github.com/AmirMahdyJebreily/String-Format-for-other-Calenders) for display on screen.
 
 
-The [```JCSdttots```](/Timestamp.Site/Components/JCSdttots.razor) Razor Component, Provide to you for convert real date to unix timestamp and display ```long``` format of unix time stamp on page
+The [```JCSdttots```](/Timestamp.Site/Components/JCSdttots.razor) Razor Component to convert real date to unix timestamp and display ```long``` format of unix timestamp on screen
