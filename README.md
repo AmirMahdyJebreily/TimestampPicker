@@ -8,3 +8,5 @@ Written with Tailwind CSS and Blazor with application language
 
 
 ![screenshot](/src/images/Screenshot.png "blazor-unixtimestamp-screenshot") 
+
+In this project, a repository [String Format for other Calenders] has been used (https://github.com/AmirMahdyJebreily/String-Format-for-other-Calenders).
